@@ -45,8 +45,10 @@ module Gruf
 
         i.call do
           if @interceptors.any?
+            logger.debug "Intercepting request with interceptor: #{@interceptors.length}"
             intercept! { yield }
           else
+            logger.debug "Intercepting request with interceptor:else block"
             yield
           end
         end

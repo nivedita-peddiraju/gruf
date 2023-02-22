@@ -77,6 +77,7 @@ module Gruf
       # @param [block] &block The passed block for executing the method
       #
       def process_action(method_key, &block)
+        Gruf.logger.debug "Intercepting request with process_action: #{method_key} started"
         send(method_key, &block)
       end
 
@@ -88,6 +89,7 @@ module Gruf
       #
       def call(method_key, &block)
         Interceptors::Context.new(@interceptors).intercept! do
+          Gruf.logger.debug "Intercepting request with process_action: #{method_key}"
           process_action(method_key, &block)
         end
       rescue GRPC::BadStatus
